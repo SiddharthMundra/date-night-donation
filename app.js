@@ -1,20 +1,10 @@
 (function () {
   const STORAGE_LOGS = "dateNightFund_logs";
-  const STORAGE_ROOM_CODE = "dateNightFund_roomCode";
   const names = { you: "Sid", partner: "Tusha" };
   const API_BASE = typeof window !== "undefined" && window.API_BASE_URL ? window.API_BASE_URL.replace(/\/$/, "") : "";
+  const ROOM_CODE = "sidtusha"; // fixed — you and Tusha share this data
 
   let logs = [];
-
-  function getRoomCode() {
-    return localStorage.getItem(STORAGE_ROOM_CODE) || "";
-  }
-
-  function setRoomCode(code) {
-    const trimmed = String(code).trim();
-    if (trimmed) localStorage.setItem(STORAGE_ROOM_CODE, trimmed);
-    return trimmed;
-  }
 
   function loadLogsLocal() {
     try {
@@ -33,9 +23,7 @@
   }
 
   async function loadLogsFromAPI() {
-    const roomCode = getRoomCode();
-    if (!roomCode) return [];
-    const res = await fetch(`${API_BASE}/logs?roomCode=${encodeURIComponent(roomCode)}`);
+    const res = await fetch(`${API_BASE}/logs?roomCode=${encodeURIComponent(ROOM_CODE)}`);
     if (!res.ok) throw new Error("Failed to load logs");
     const data = await res.json();
     const arr = data.logs || [];
@@ -59,13 +47,11 @@
   }
 
   async function saveLogToAPI(entry) {
-    const roomCode = getRoomCode();
-    if (!roomCode) return;
     const res = await fetch(`${API_BASE}/logs`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        roomCode,
+        roomCode: ROOM_CODE,
         date: entry.date,
         you: entry.you,
         partner: entry.partner,
@@ -77,12 +63,10 @@
   }
 
   async function deleteLogFromAPI(logId) {
-    const roomCode = getRoomCode();
-    if (!roomCode) return;
     const res = await fetch(`${API_BASE}/logs`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ roomCode, logId }),
+      body: JSON.stringify({ roomCode: ROOM_CODE, logId }),
     });
     if (!res.ok) throw new Error("Failed to delete");
     const data = await res.json();
@@ -175,40 +159,8 @@
     renderHistory();
   }
 
-  function showRoomCodeSection(show) {
-    const el = document.getElementById("room-code-section");
-    if (el) el.classList.toggle("hidden", !show);
-  }
-
-  function renderRoomCode() {
-    const inp = document.getElementById("room-code-input");
-    const saveBtn = document.getElementById("room-code-save");
-    if (!inp || !saveBtn) return;
-    inp.value = getRoomCode();
-    if (API_BASE) {
-      showRoomCodeSection(true);
-    } else {
-      showRoomCodeSection(false);
-    }
-  }
-
-  function onRoomCodeSave() {
-    const inp = document.getElementById("room-code-input");
-    if (!inp) return;
-    const newCode = setRoomCode(inp.value);
-    if (newCode) init();
-    else alert("Enter a room code (you and Tusha share this).");
-  }
-
   async function init() {
-    if (API_BASE && !getRoomCode()) {
-      logs = [];
-      renderRoomCode();
-      render();
-      return;
-    }
     logs = await loadLogs();
-    renderRoomCode();
     render();
   }
 
@@ -242,7 +194,7 @@
           logDate.value = new Date().toISOString().slice(0, 10);
           render();
         } catch (err) {
-          alert("Could not save. Check room code and try again.");
+          alert("Could not save. Try again.");
         }
       } else {
         logs.push(entry);
@@ -254,9 +206,6 @@
       }
     });
   }
-
-  const saveBtn = document.getElementById("room-code-save");
-  if (saveBtn) saveBtn.addEventListener("click", onRoomCodeSave);
 
   init();
 })();
