@@ -1,6 +1,6 @@
 # Date Night Fund
 
-Track who missed applying to 3 jobs each day. Each miss = $1 toward your next date night. When you split the bill, that amount comes from the person’s side.
+Track who missed applying to 3 jobs each day. Each miss = $2 toward your next date night. When you split the bill, that amount comes from the person’s side.
 
 ## Deploy on GitHub Pages
 

@@ -32,8 +32,8 @@
 
   function renderTotals() {
     const { you, partner } = getTotals();
-    document.getElementById("total-you").textContent = "$" + you;
-    document.getElementById("total-partner").textContent = "$" + partner;
+    document.getElementById("total-you").textContent = "$" + you * 2;
+    document.getElementById("total-partner").textContent = "$" + partner * 2;
   }
 
   function formatDate(dateStr) {
