@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date Night Fund · Job Application Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Date Night Fund</h1>
+      <p class="tagline">3 jobs per day — miss a day, add $2 to the fund.</p>
+    </header>
+
+    <section class="totals">
+      <div class="total-card you">
+        <span class="label" data-you-label>Sid</span>
+        <span class="amount" id="total-you">$0</span>
+        <span class="sub">from their side</span>
+      </div>
+      <div class="total-card partner">
+        <span class="label" data-partner-label>Tusha</span>
+        <span class="amount" id="total-partner">$0</span>
+        <span class="sub">from their side</span>
+      </div>
+    </section>
+
+    <section class="log-section">
+      <h2>Log a miss</h2>
+      <form id="log-form" class="log-form">
+        <label>
+          Date
+          <input type="date" id="log-date" required />
+        </label>
+        <div class="checkboxes">
+          <label class="check-label">
+            <input type="checkbox" id="miss-you" name="miss" value="you" />
+            <span data-you-label>Sid</span> didn’t apply to 3 jobs (+$1)
+          </label>
+          <label class="check-label">
+            <input type="checkbox" id="miss-partner" name="miss" value="partner" />
+            <span data-partner-label>Tusha</span> didn’t (+$1)
+          </label>
+        </div>
+        <button type="submit">Add log</button>
+      </form>
+    </section>
+
+    <section class="history">
+      <h2>History</h2>
+      <ul id="log-list"></ul>
+      <p id="empty-history" class="empty">No entries yet. Log when someone misses a day.</p>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
