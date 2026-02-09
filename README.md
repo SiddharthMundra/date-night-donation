@@ -1,6 +1,9 @@
 # Date Night Fund
 
-Track who missed applying to 3 jobs each day. Each miss = $2 toward your next date night. When you split the bill, that amount comes from the person’s side.
+Track who missed applying to 3 jobs each day. Each miss = $2 toward your next date night. That amount is “from their side” when you split the bill.
+
+- **Local only:** Data stays in your browser (localStorage).
+- **With AWS:** Use the free DynamoDB backend so you and your partner see the same data from any device. See [backend/README.md](backend/README.md) for setup.
 
 ## Deploy on GitHub Pages
 

@@ -11,6 +11,13 @@
 </head>
 <body>
   <div class="app">
+    <section id="room-code-section" class="room-code hidden">
+      <label>Room code <span class="room-desc">(share with Tusha so you see the same data)</span></label>
+      <div class="room-code-row">
+        <input type="text" id="room-code-input" placeholder="e.g. sidtusha" maxlength="32" />
+        <button type="button" id="room-code-save">Save</button>
+      </div>
+    </section>
     <header>
       <h1>Date Night Fund</h1>
       <p class="tagline">3 jobs per day — miss a day, add $2 to the fund.</p>
@@ -58,6 +65,7 @@
 
   </div>
 
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
